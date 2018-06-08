@@ -33,6 +33,10 @@ Route::post('/users', 'UserController@store')->middleware('auth:api');
 
 //Route for creating new province
 Route::post('/provincias', 'ProvinciaController@store')->middleware('auth:api');
+
+//Route for getting the entire list of provinces
+Route::get('/provincias/todos', 'ProvinciaController@showAll')->middleware('auth:api');
+
 /**
  * PROVINCE END
  */

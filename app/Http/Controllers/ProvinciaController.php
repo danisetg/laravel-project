@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProvinciaRequest;
 use App\Provincia;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ProvinciaController extends Controller
 {
@@ -16,6 +17,17 @@ class ProvinciaController extends Controller
     public function index()
     {
         //
+    }
+
+    /**
+     * Display all stored elements of resource
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showAll()
+    {
+        $provincias = Provincia::all();
+        return $this->normalResponse($provincias,"Datos Recuperados");
     }
 
     /**
@@ -31,13 +43,14 @@ class ProvinciaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ProvinciaRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(ProvinciaRequest $request)
     {
         $provincia = new Provincia($request->all());
         $provincia->save();
+        return $this->normalResponse($provincia, "Objeto Creado");
     }
 
     /**
