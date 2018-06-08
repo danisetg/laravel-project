@@ -37,6 +37,9 @@ Route::post('/provincias', 'ProvinciaController@store')->middleware('auth:api');
 //Route for getting the entire list of provinces
 Route::get('/provincias/todos', 'ProvinciaController@showAll')->middleware('auth:api');
 
+//Route for getting the province with given id
+Route::get('/provincias/{id}', 'ProvinciaController@show')->middleware('auth:api');
+
 /**
  * PROVINCE END
  */

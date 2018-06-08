@@ -20,9 +20,9 @@ class ProvinciaController extends Controller
     }
 
     /**
-     * Display all stored elements of resource
+     * Show All resources stored
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function showAll()
     {
@@ -31,20 +31,10 @@ class ProvinciaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Store new resource
      *
      * @param ProvinciaRequest $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(ProvinciaRequest $request)
     {
@@ -54,14 +44,15 @@ class ProvinciaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the data of the given province
      *
-     * @param  \App\Provincia  $provincia
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Provincia $provincia)
+    public function show($id)
     {
-        //
+        $province = Provincia::findOrFail($id);
+        return $this->normalResponse($province, 'Datos Recuperados');
     }
 
     /**
