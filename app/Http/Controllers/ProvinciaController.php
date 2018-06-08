@@ -35,7 +35,8 @@ class ProvinciaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $provincia = new Provincia($request->all());
+        $provincia->save();
     }
 
     /**

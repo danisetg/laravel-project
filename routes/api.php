@@ -16,4 +16,24 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/users', 'UserController@store');
+
+/**
+ * USER BEGIN
+ */
+
+//Route for creating new user
+Route::post('/users', 'UserController@store')->middleware('auth:api');
+/**
+ * USER END
+ */
+
+/**
+ * PROVINCE BEGIN
+ */
+
+//Route for creating new province
+Route::post('/provincias', 'ProvinciaController@store')->middleware('auth:api');
+/**
+ * PROVINCE END
+ */
+
