@@ -11,7 +11,7 @@ class Provincia extends Model
      *
      * @var string
      */
-    protected $table = 'municipio';
+    protected $table = 'provincia';
 
     /**
      * Indicates if the model should be timestamped.
@@ -19,4 +19,13 @@ class Provincia extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'nombre', 'abreviatura'
+    ];
 }

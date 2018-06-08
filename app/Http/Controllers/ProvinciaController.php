@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProvinciaRequest;
 use App\Provincia;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,7 @@ class ProvinciaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProvinciaRequest $request)
     {
         $provincia = new Provincia($request->all());
         $provincia->save();
