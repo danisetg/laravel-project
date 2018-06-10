@@ -6,17 +6,22 @@ use App\Http\Requests\ProvinciaRequest;
 use App\Provincia;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class ProvinciaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $response = Provincia::query();
+            $response->where('nombre', 'like', '%'.$request['q'].'%')
+                -> orWhere('abreviatura', 'like', '%'.$request['q'].'%');
+        return $response->paginate($request['limit'],['*'],'page',$request['offset']+1);
     }
 
     /**
@@ -52,30 +57,24 @@ class ProvinciaController extends Controller
     public function show($id)
     {
         $province = Provincia::findOrFail($id);
+        $province['municipios'] = $province->municipios()->get();
         return $this->normalResponse($province, 'Datos Recuperados');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Provincia  $provincia
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Provincia $provincia)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Provincia  $provincia
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Provincia $provincia)
+    public function update(Request $request, $id)
     {
-        //
+        $province = Provincia::findOrFail($id);
+        $province->fill($request->all());
+        $province->save();
+        return $this->normalResponse($province, 'Datos Actualizados');
     }
 
     /**
@@ -84,8 +83,11 @@ class ProvinciaController extends Controller
      * @param  \App\Provincia  $provincia
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Provincia $provincia)
+    public function destroy($id)
     {
-        //
+        $province = Provincia::findOrFail($id);
+        $province->delete();
+        return $this->normalResponse($id, 'Provincia Eliminada');
+
     }
 }

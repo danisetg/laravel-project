@@ -19,4 +19,21 @@ class Municipio extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'nombre', 'abreviatura', 'provincia_id'
+    ];
+
+    /**
+     * Get the post that owns the comment.
+     */
+    public function provincia()
+    {
+        return $this->belongsTo('App\Provincia');
+    }
 }

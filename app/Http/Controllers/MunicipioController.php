@@ -12,30 +12,44 @@ class MunicipioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $q = '%'.$request['q'].'%';
+
+        //function where for grouping the orWhere statement
+        $response = Municipio::where(function ($query) use($q){
+           $query->where('nombre', 'like', $q)
+               ->orWhere('abreviatura', 'like', $q);
+        });
+
+
+        if($request['provincia_id']){
+            $response->where('provincia_id', $request['provincia_id']);
+        }
+
+        return $response->paginate($request['limit'],['*'],'page',$request['offset']+1);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function showAll(Request $request)
     {
-        //
+        $municipios = Municipio::all();
+        if($request['provincia_id'])$municipios->where('provincia_id', '=', $request['provincia_id']);
+        return $this->normalResponse($municipios,"Datos Recuperados");
     }
+
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $municipio = new Municipio($request->all());
+        $municipio->save();
+        return $this->normalResponse($municipio, 'Municipio Creado');
     }
 
     /**
@@ -44,32 +58,27 @@ class MunicipioController extends Controller
      * @param  \App\Municipio  $municipio
      * @return \Illuminate\Http\Response
      */
-    public function show(Municipio $municipio)
+    public function show($id)
     {
-        //
+        $municipio = Municipio::findOrFail($id);
+        $municipio['provincia'] = $municipio->provincia()->get();
+        return $this->normalResponse($municipio, 'Datos Recuperados');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Municipio  $municipio
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Municipio $municipio)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Municipio  $municipio
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Municipio $municipio)
+    public function update(Request $request, $id)
     {
-        //
+        $municipio = Municipio::findOrFail($id);
+        $municipio->fill($request->all());
+        $municipio->save();
+        return $this->normalResponse($municipio,"Municipio Actualizado");
     }
 
     /**
@@ -78,8 +87,10 @@ class MunicipioController extends Controller
      * @param  \App\Municipio  $municipio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Municipio $municipio)
+    public function destroy($id)
     {
-        //
+        $municipio = Municipio::findOrFail($id);
+        $municipio->delete();
+        return $this->normalResponse($id, "Municipio Eliminado");
     }
 }

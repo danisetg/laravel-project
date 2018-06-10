@@ -28,4 +28,14 @@ class Provincia extends Model
     protected $fillable = [
         'nombre', 'abreviatura'
     ];
+
+    /**
+     * Get the municipios for the blog post.
+     */
+    public function municipios()
+    {
+        return $this->hasMany('App\Municipio');
+    }
+
+
 }
