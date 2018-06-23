@@ -24,8 +24,8 @@ class PlagaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre_cientifico' => 'required|unique:plaga|max:50',
-            'nombre_vulgar' => 'required|unique:plaga|max:50',
+            'nombre_cientifico' => 'required|unique:plaga,id|max:50',
+            'nombre_vulgar' => 'required|unique:plaga,id|max:50',
         ];
     }
 }

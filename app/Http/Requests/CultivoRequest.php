@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MunicipioRequest extends FormRequest
+class CultivoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,13 @@ class MunicipioRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|unique:municipio,id|max:50',
-            'abreviatura' => 'required|unique:municipio,id|max:5',
-            'provincia_id' => 'required'
+            'nombre' => 'required|max:50',
+            'fecha_siembra' => 'required',
+            'area' => 'required',
+            'campo_id' => 'required',
+            'variedad_id' => 'required',
+            'fenologia_id' => 'required',
+            'coordenada_id' => 'required',
         ];
     }
 }

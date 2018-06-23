@@ -43,7 +43,7 @@ Route::get('/provincias/{id}', 'ProvinciaController@show')->middleware('auth:api
 //Route for getting the paginated list of provinces
 Route::get('/provincias', 'ProvinciaController@index')->middleware('auth:api');
 
-//Route for updating the gicen province
+//Route for updating the given province
 Route::put('/provincias/{id}', 'ProvinciaController@update')->middleware('auth:api');
 
 //Route for deleting the given province
@@ -69,7 +69,7 @@ Route::get('/municipios/{id}', 'MunicipioController@show')->middleware('auth:api
 //Route for getting the paginated list of municipios
 Route::get('/municipios', 'MunicipioController@index')->middleware('auth:api');
 
-//Route for updating the gicen municipio
+//Route for updating the given municipio
 Route::put('/municipios/{id}', 'MunicipioController@update')->middleware('auth:api');
 
 //Route for deleting the given municipio
@@ -77,5 +77,31 @@ Route::delete('/municipios/{id}', 'MunicipioController@destroy')->middleware('au
 
 /**
  * MUNICIPIO END
+ */
+
+/**
+ * PLAGA BEGIN
+ */
+
+//Route for creating new plaga
+Route::post('/plagas', 'PlagaController@store')->middleware('auth:api');
+
+//Route for getting the entire list of plagas
+Route::get('/plagas/todos', 'PlagaController@showAll')->middleware('auth:api');
+
+//Route for getting the plaga with given id
+Route::get('/plagas/{id}', 'PlagaController@show')->middleware('auth:api');
+
+//Route for getting the paginated list of plagas
+Route::get('/plagas', 'PlagaController@index')->middleware('auth:api');
+
+//Route for updating the given plaga
+Route::put('/plagas/{id}', 'PlagaController@update')->middleware('auth:api');
+
+//Route for deleting the given plaga
+Route::delete('/plagas/{id}', 'PlagaController@destroy')->middleware('auth:api');
+
+/**
+ * PLAGA END
  */
 

@@ -29,7 +29,8 @@ $app = new Illuminate\Foundation\Application(
 // allow origin
 header('Access-Control-Allow-Origin: *');
 // add any additional headers you need to support here
-header('Access-Control-Allow-Headers: Origin, Content-Type');
+header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization');
+header('Access-Control-Allow-Methods: POST, PUT, GET, DELETE');
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,

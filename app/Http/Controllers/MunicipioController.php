@@ -25,11 +25,12 @@ class MunicipioController extends Controller
         });
 
 
-        if($request['provincia_id']){
+        if($request['provincia_id'] && $request['provincia_id'] != -1){
             $response->where('provincia_id', $request['provincia_id']);
         }
 
-        return $response->paginate($request['limit'],['*'],'page',$request['offset']+1);
+
+        return $response->with('provincia')->paginate($request['limit'],['*'],'page',$request['offset']+1);
     }
 
 
@@ -78,7 +79,9 @@ class MunicipioController extends Controller
     public function update(MunicipioRequest $request, $id)
     {
         $municipio = Municipio::findOrFail($id);
-        $municipio->fill($request->all());
+        $municipio['nombre'] = $request['nombre'];
+        $municipio['abreviatura'] = $request['abreviatura'];
+        $municipio['provincia_id'] = $request['provincia_id'];
         $municipio->save();
         return $this->normalResponse($municipio,"Municipio Actualizado");
     }

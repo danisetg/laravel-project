@@ -24,8 +24,8 @@ class ProvinciaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|unique:provincia|max:50',
-            'abreviatura' => 'required|unique:provincia|max:5',
+            'nombre' => 'required|unique:provincia,id|max:50',
+            'abreviatura' => 'required|unique:provincia,id|max:5',
         ];
     }
 }

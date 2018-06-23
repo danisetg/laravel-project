@@ -69,10 +69,11 @@ class ProvinciaController extends Controller
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(ProvinciaRequest $request, $id)
     {
         $province = Provincia::findOrFail($id);
-        $province->fill($request->all());
+        $province['nombre'] = $request['nombre'];
+        $province['abreviatura'] = $request['abreviatura'];
         $province->save();
         return $this->normalResponse($province, 'Datos Actualizados');
     }
