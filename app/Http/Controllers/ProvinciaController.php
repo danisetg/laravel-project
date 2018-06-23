@@ -72,8 +72,7 @@ class ProvinciaController extends Controller
     public function update(ProvinciaRequest $request, $id)
     {
         $province = Provincia::findOrFail($id);
-        $province['nombre'] = $request['nombre'];
-        $province['abreviatura'] = $request['abreviatura'];
+        $province->fill($request->all());
         $province->save();
         return $this->normalResponse($province, 'Datos Actualizados');
     }

@@ -79,9 +79,7 @@ class MunicipioController extends Controller
     public function update(MunicipioRequest $request, $id)
     {
         $municipio = Municipio::findOrFail($id);
-        $municipio['nombre'] = $request['nombre'];
-        $municipio['abreviatura'] = $request['abreviatura'];
-        $municipio['provincia_id'] = $request['provincia_id'];
+        $municipio->fill($request->all());
         $municipio->save();
         return $this->normalResponse($municipio,"Municipio Actualizado");
     }

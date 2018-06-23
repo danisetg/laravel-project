@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Variedad extends Model
+class Coordenada extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'variedad';
+    protected $table = 'coordenada';
 
     /**
      * Indicates if the model should be timestamped.
@@ -26,14 +26,6 @@ class Variedad extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre', 'abreviatura'
+        'latitud', 'longitud'
     ];
-
-    /**
-     * Get the municipios for the blog post.
-     */
-    public function cultivos()
-    {
-        return $this->hasMany('App\Cultivo');
-    }
 }

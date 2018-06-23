@@ -105,3 +105,29 @@ Route::delete('/plagas/{id}', 'PlagaController@destroy')->middleware('auth:api')
  * PLAGA END
  */
 
+/**
+ * VARIEDAD BEGIN
+ */
+
+//Route for creating new variedad
+Route::post('/variedades', 'VariedadController@store')->middleware('auth:api');
+
+//Route for getting the entire list of variedades
+Route::get('/variedades/todos', 'VariedadController@showAll')->middleware('auth:api');
+
+//Route for getting the variedad with given id
+Route::get('/variedades/{id}', 'VariedadController@show')->middleware('auth:api');
+
+//Route for getting the paginated list of variedades
+Route::get('/variedades', 'VariedadController@index')->middleware('auth:api');
+
+//Route for updating the given variedad
+Route::put('/variedades/{id}', 'VariedadController@update')->middleware('auth:api');
+
+//Route for deleting the given variedad
+Route::delete('/variedades/{id}', 'VariedadController@destroy')->middleware('auth:api');
+
+/**
+ * VARIEDAD END
+ */
+

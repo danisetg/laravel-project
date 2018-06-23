@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VariedadRequest;
 use App\Variedad;
 use Illuminate\Http\Request;
 
@@ -10,66 +11,69 @@ class VariedadController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $response = Variedad::query();
+        $response->where('nombre', 'like', '%'.$request['q'].'%')
+            -> orWhere('abreviatura', 'like', '%'.$request['q'].'%');
+        return $response->paginate($request['limit'],['*'],'page',$request['offset']+1);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show All resources stored
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function create()
+    public function showAll()
     {
-        //
+        $variedades = Variedad::all();
+        return $this->normalResponse($variedades,"Datos Recuperados");
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store new resource
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param VariedadRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(VariedadRequest $request)
     {
-        //
+        $variedad = new Variedad($request->all());
+        $variedad->save();
+        return $this->normalResponse($variedad, "Objeto Creado");
     }
 
     /**
-     * Display the specified resource.
+     * Display the data of the given variedad
      *
-     * @param  \App\Variedad  $variedad
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Variedad $variedad)
+    public function show($id)
     {
-        //
+        $variedad = Variedad::findOrFail($id);
+        $variedad['cultivos'] = $variedad->cultivos()->get();
+        return $this->normalResponse($variedad, 'Datos Recuperados');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Variedad  $variedad
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Variedad $variedad)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Variedad  $variedad
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Variedad $variedad)
+    public function update(VariedadRequest $request, $id)
     {
-        //
+        $variedad = Variedad::findOrFail($id);
+        $variedad['nombre'] = $request['nombre'];
+        $variedad['abreviatura'] = $request['abreviatura'];
+        $variedad->save();
+        return $this->normalResponse($variedad, 'Datos Actualizados');
     }
 
     /**
@@ -78,8 +82,11 @@ class VariedadController extends Controller
      * @param  \App\Variedad  $variedad
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Variedad $variedad)
+    public function destroy($id)
     {
-        //
+        $variedad = Variedad::findOrFail($id);
+        $variedad->delete();
+        return $this->normalResponse($id, 'Variedad Eliminada');
+
     }
 }
