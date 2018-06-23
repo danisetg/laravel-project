@@ -131,3 +131,30 @@ Route::delete('/variedades/{id}', 'VariedadController@destroy')->middleware('aut
  * VARIEDAD END
  */
 
+/**
+ * Coordenada BEGIN
+ */
+
+//Route for creating new coordenada
+Route::post('/coordenadas', 'CoordenadaController@store')->middleware('auth:api');
+
+//Route for getting the entire list of coordenadas
+Route::get('/coordenadas/todos', 'CoordenadaController@showAll')->middleware('auth:api');
+
+//Route for getting the coordenada with given id
+Route::get('/coordenadas/{id}', 'CoordenadaController@show')->middleware('auth:api');
+
+//Route for getting the paginated list of coordenadas
+Route::get('/coordenadas', 'CoordenadaController@index')->middleware('auth:api');
+
+//Route for updating the given coordenada
+Route::put('/coordenadas/{id}', 'CoordenadaController@update')->middleware('auth:api');
+
+//Route for deleting the given coordenada
+Route::delete('/coordenadas/{id}', 'CoordenadaController@destroy')->middleware('auth:api');
+
+/**
+ * COORDENADA END
+ */
+
+
