@@ -157,4 +157,30 @@ Route::delete('/coordenadas/{id}', 'CoordenadaController@destroy')->middleware('
  * COORDENADA END
  */
 
+/**
+ * Ettp BEGIN
+ */
+
+//Route for creating new ettp
+Route::post('/ettps', 'EttpController@store')->middleware('auth:api');
+
+//Route for getting the entire list of ettps
+Route::get('/ettps/todos', 'EttpController@showAll')->middleware('auth:api');
+
+//Route for getting the ettp with given id
+Route::get('/ettps/{id}', 'EttpController@show')->middleware('auth:api');
+
+//Route for getting the paginated list of ettps
+Route::get('/ettps', 'EttpController@index')->middleware('auth:api');
+
+//Route for updating the given ettp
+Route::put('/ettps/{id}', 'EttpController@update')->middleware('auth:api');
+
+//Route for deleting the given ettp
+Route::delete('/ettps/{id}', 'EttpController@destroy')->middleware('auth:api');
+
+/**
+ * ETTP END
+ */
+
 

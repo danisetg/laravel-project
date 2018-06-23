@@ -24,8 +24,8 @@ class EttpRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|unique:ettp|max:50',
-            'abreviatura' => 'required|unique:ettp|max:5',
+            'nombre' => 'required|unique:ettp,id|max:50',
+            'abreviatura' => 'required|unique:ettp,id|max:5',
         ];
     }
 }

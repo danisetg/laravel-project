@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Ettp;
+use App\Http\Requests\EttpRequest;
 use Illuminate\Http\Request;
 
 class EttpController extends Controller
@@ -10,66 +11,67 @@ class EttpController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $response = Ettp::query();
+        $response->where('nombre', 'like', '%'.$request['q'].'%')
+            -> orWhere('abreviatura', 'like', '%'.$request['q'].'%');
+        return $response->paginate($request['limit'],['*'],'page',$request['offset']+1);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show All resources stored
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function create()
+    public function showAll()
     {
-        //
+        $ettps = Ettp::all();
+        return $this->normalResponse($ettps,"Datos Recuperados");
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store new resource
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param EttpRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(EttpRequest $request)
     {
-        //
+        $ettp = new Ettp($request->all());
+        $ettp->save();
+        return $this->normalResponse($ettp, "Objeto Creado");
     }
 
     /**
-     * Display the specified resource.
+     * Display the data of the given ettp
      *
-     * @param  \App\Ettp  $ettp
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Ettp $ettp)
+    public function show($id)
     {
-        //
+        $ettp = Ettp::findOrFail($id);
+        return $this->normalResponse($ettp, 'Datos Recuperados');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Ettp  $ettp
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Ettp $ettp)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Ettp  $ettp
-     * @return \Illuminate\Http\Response
+     * @param EttpRequest $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Ettp $ettp)
+    public function update(EttpRequest $request, $id)
     {
-        //
+        $ettp = Ettp::findOrFail($id);
+        $ettp->fill($request->all());
+        $ettp->save();
+        return $this->normalResponse($ettp, 'Datos Actualizados');
     }
 
     /**
@@ -78,8 +80,11 @@ class EttpController extends Controller
      * @param  \App\Ettp  $ettp
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ettp $ettp)
+    public function destroy($id)
     {
-        //
+        $ettp = Ettp::findOrFail($id);
+        $ettp->delete();
+        return $this->normalResponse($id, 'Ettp Eliminada');
+
     }
 }
