@@ -24,8 +24,8 @@ class EmpresaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|unique:empresa|max:50',
-            'abreviatura' => 'required|unique:empresa|max:5',
+            'nombre' => 'required|unique:empresa,id|max:50',
+            'abreviatura' => 'required|unique:empresa,id|max:5',
             'ettp_id' => 'required',
         ];
     }

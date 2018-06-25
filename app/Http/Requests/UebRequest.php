@@ -24,8 +24,8 @@ class UebRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|unique:ueb|max:50',
-            'abreviatura' => 'required|unique:ueb|max:5',
+            'nombre' => 'required|unique:ueb,id|max:50',
+            'abreviatura' => 'required|unique:ueb,id|max:5',
             'empresa_id' => 'required',
         ];
     }

@@ -180,7 +180,80 @@ Route::put('/ettps/{id}', 'EttpController@update')->middleware('auth:api');
 Route::delete('/ettps/{id}', 'EttpController@destroy')->middleware('auth:api');
 
 /**
- * ETTP END
+ * EMPRESA END
  */
 
+//Route for creating new empresa
+Route::post('/empresas', 'EmpresaController@store')->middleware('auth:api');
+
+//Route for getting the entire list of empresas
+Route::get('/empresas/todos', 'EmpresaController@showAll')->middleware('auth:api');
+
+//Route for getting the empresa with given id
+Route::get('/empresas/{id}', 'EmpresaController@show')->middleware('auth:api');
+
+//Route for getting the paginated list of empresas
+Route::get('/empresas', 'EmpresaController@index')->middleware('auth:api');
+
+//Route for updating the given empresa
+Route::put('/empresas/{id}', 'EmpresaController@update')->middleware('auth:api');
+
+//Route for deleting the given empresa
+Route::delete('/empresas/{id}', 'EmpresaController@destroy')->middleware('auth:api');
+
+/**
+ * EMPRESA END
+ */
+
+/**
+ * UEB BEGIN
+ */
+
+//Route for creating new empresa
+Route::post('/uebs', 'UebController@store')->middleware('auth:api');
+
+//Route for getting the entire list of uebs
+Route::get('/uebs/todos', 'UebController@showAll')->middleware('auth:api');
+
+//Route for getting the ueb with given id
+Route::get('/uebs/{id}', 'UebController@show')->middleware('auth:api');
+
+//Route for getting the paginated list of uebs
+Route::get('/uebs', 'UebController@index')->middleware('auth:api');
+
+//Route for updating the given ueb
+Route::put('/uebs/{id}', 'UebController@update')->middleware('auth:api');
+
+//Route for deleting the given ueb
+Route::delete('/uebs/{id}', 'UebController@destroy')->middleware('auth:api');
+
+/**
+ * UEB END
+ */
+
+/**
+ * FENOLOGIA BEGIN
+ */
+
+//Route for creating new empresa
+Route::post('/fenologias', 'FenologiaController@store')->middleware('auth:api');
+
+//Route for getting the entire list of fenologias
+Route::get('/fenologias/todos', 'FenologiaController@showAll')->middleware('auth:api');
+
+//Route for getting the fenologia with given id
+Route::get('/fenologias/{id}', 'FenologiaController@show')->middleware('auth:api');
+
+//Route for getting the paginated list of fenologias
+Route::get('/fenologias', 'FenologiaController@index')->middleware('auth:api');
+
+//Route for updating the given fenologia
+Route::put('/fenologias/{id}', 'FenologiaController@update')->middleware('auth:api');
+
+//Route for deleting the given fenologia
+Route::delete('/fenologias/{id}', 'FenologiaController@destroy')->middleware('auth:api');
+
+/**
+ * FENOLOGIA END
+ */
 

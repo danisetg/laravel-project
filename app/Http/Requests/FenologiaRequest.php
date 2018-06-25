@@ -24,8 +24,8 @@ class FenologiaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|unique:fenologia|max:50',
-            'abreviatura' => 'required|unique:fenologia|max:5',
+            'nombre' => 'required|unique:fenologia,id|max:50',
+            'abreviatura' => 'required|unique:fenologia,id|max:5',
         ];
     }
 }

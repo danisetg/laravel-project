@@ -65,7 +65,7 @@ class ProvinciaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param ProvinciaRequest $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
@@ -80,8 +80,8 @@ class ProvinciaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Provincia  $provincia
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
